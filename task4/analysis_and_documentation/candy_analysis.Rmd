@@ -1,0 +1,79 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(here)
+read_csv(here("candy.csv"))
+```
+
+#1. What is the total number of candy ratings given across the three years. (number of candy ratings, not number of raters. Don’t count missing values)
+
+```{r}
+candy %>% summarise(count = sum(!is.na(value)))
+```
+
+#2. What was the average age of people who are going out trick or treating and the average age of people not going trick or treating?
+
+```{r}
+candy %>% 
+  select(age, going_out) %>% 
+  filter(going_out == "Yes") %>% 
+  summarise(mean(age))
+
+candy %>% 
+  select(age, going_out) %>% 
+  filter(going_out == "No") %>% 
+  summarise(mean(age))
+```
+#3. For each of joy, despair and meh, which candy bar received the most of these ratings?
+```{r}
+candy %>%
+  select(candy_type, value) %>% 
+  filter(value == "JOY") %>% 
+  count(candy_type) %>% 
+  arrange(desc(value)) %>% 
+  slice(1)
+  
+candy %>% 
+  select(candy_type, value) %>% 
+  filter(value == "DESPAIR") %>% 
+  count(candy_type) %>% 
+  arrange(desc(value)) %>% 
+  slice(1)
+
+candy %>% 
+  select(candy_type, value) %>% 
+  filter(value == "MEH") %>% 
+  count(candy_type) %>% 
+  arrange(desc(value)) %>% 
+  slice(1)
+```
+
+#4. How many people rated Starburst as despair?
+```{r}
+candy %>% 
+  filter(value == "DESPAIR")
+```
+
+#For the next three questions, count despair as -1, joy as +1 and meh as 0.
+```{r}
+candy <- candy %>% revalue(value, c("DESPAIR" = -1))
+revalue(candy$value, c("JOY" = 1)) %>% 
+revalue(candy$value, c("MEH" = 0))
+```
+
+#5. What was the most popular candy bar by this rating system for each gender in the dataset?
+```{r}
+candy %>% 
+  select(value, candy_type, gender) %>% 
+  group_by(gender)
+```
+
+
+#6. What was the most popular candy bar in each year?
+
+#7. What was the most popular candy bar by this rating for people in US, Canada, UK and all other countries?

@@ -1,0 +1,15 @@
+---
+title: "candy_rmd"
+output: html_document
+---
+
+Candy Analysis:
+
+- This dataset is 3 years worth of survey data asking individuals their opinions on candy as well as country and gender if they wish to answer
+- Individually cleaned each dataset - removed irrelevant columns, pivoted the candy_type to a new long column
+- Cleaned column names, changed names to be consistent with each dataset to prepare for binding
+- Bound columns together
+- Filtered the age column for numerical values, set limit on age
+- Removed special characters from candy_type column
+- Hard coded countries for spelling mistakes/consistency
+

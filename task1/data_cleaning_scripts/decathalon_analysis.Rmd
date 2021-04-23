@@ -1,0 +1,12 @@
+---
+title: "decathalon.rmd"
+output: html_document
+---
+
+`
+Decathalon Analysis:
+
+- This dataset shows data from two separate decathalon competitions with some overlapping athletes 
+- Moved the rows of names to a column called athlete_name
+- Cleaned column names, titled athlete names for consistency
+- Carried out analysis questions
